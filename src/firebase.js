@@ -1,29 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-const getFirebaseConfig = (mode = import.meta.env.MODE) => {
-  const development = {
-    apiKey: "AIzaSyDKleoyUb6Njb-ioS_LaPkFoHPsrSUOVsM",
-    authDomain: "react-dev-0525.firebaseapp.com",
-    projectId: "react-dev-0525",
-    storageBucket: "react-dev-0525.appspot.com",
-    messagingSenderId: "842371412734",
-    appId: "1:842371412734:web:2f0c04f5cdfb04cb66ebaf",
-  };
-  const production = {
-    apiKey: "AIzaSyDL90tiE7fuVFosLeE9HZsBE8lAsRA-ORc",
-    authDomain: "react-prod-0525.firebaseapp.com",
-    projectId: "react-prod-0525",
-    storageBucket: "react-prod-0525.appspot.com",
-    messagingSenderId: "275021267665",
-    appId: "1:275021267665:web:d8efd740acd6e9e84c7bf0",
+const getFirebaseConfig = () => {
+  const config = {
+    apiKey: import.meta.env.VITE_API_KEY,
+    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_APP_ID,
   };
 
-  if (mode === "production") {
-    return production;
-  }
-
-  return development;
+  return config;
 };
 
 // Your web app's Firebase configuration
