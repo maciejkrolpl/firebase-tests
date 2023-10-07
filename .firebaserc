@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "react-dev-0525",
+    "dev": "react-dev-0525",
+    "prod": "react-prod-0525"
+  },
+  "targets": {},
+  "etags": {}
+}
