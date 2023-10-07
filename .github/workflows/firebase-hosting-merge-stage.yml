@@ -16,6 +16,7 @@ jobs:
           echo VITE_API_KEY="AIzaSyDKleoyUb6Njb-ioS_LaPkFoHPsrSUOVsM" >> .env
           cat .env
   build_and_deploy:
+    needs: create-envfile
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -27,6 +28,7 @@ jobs:
           channelId: live
           projectId: react-dev-0525
   show_everything:
+    needs: build_and_deploy
     runs-on: ubuntu-latest
     steps:
       - name: List all
