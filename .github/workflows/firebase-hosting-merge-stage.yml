@@ -15,6 +15,9 @@ jobs:
           touch .env
           echo VITE_API_KEY="AIzaSyDKleoyUb6Njb-ioS_LaPkFoHPsrSUOVsM" >> .env
           cat .env
+
+          echo "ls -a ."
+          ls -a .
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
