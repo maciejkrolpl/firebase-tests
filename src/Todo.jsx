@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { add, retrieveAll, remove } from "./firebase/firebase";
 import Item from "./Item";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Todo = () => {
   const collectionName = "todos";
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
+  const [dueDate, setDueDate] = useState(new Date());
 
   const addTodo = async (e) => {
     e.preventDefault();
@@ -13,10 +16,10 @@ const Todo = () => {
     try {
       const doc = {
         todo,
+        dueDate,
         isDone: false,
       };
-      const docId = await add(collectionName, doc);
-      console.log("Document written with ID: ", docId);
+      await add(collectionName, doc);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -42,7 +45,7 @@ const Todo = () => {
   const onDeleteClick = async (e) => {
     const id = e.currentTarget.id;
     const res = await remove(collectionName, id);
-    console.log("🚀 ~ onDeleteClick ~ res:", res)
+    console.log("🚀 ~ onDeleteClick ~ res:", res);
   };
 
   return (
@@ -59,10 +62,18 @@ const Todo = () => {
             />
           </div>
 
-          <div className="btn-container">
-            <button type="submit" className="btn" onClick={addTodo}>
-              Submit
-            </button>
+          <div className="input-down">
+            <div className="date-container">
+              <DatePicker
+                selected={dueDate}
+                onChange={(date) => setDueDate(date)}
+              />
+            </div>
+            <div className="btn-container">
+              <button type="submit" className="btn" onClick={addTodo}>
+                Submit
+              </button>
+            </div>
           </div>
         </header>
 

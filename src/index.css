@@ -6,10 +6,6 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-header {
-  display: flex;
-  align-items: center;
-}
 
 .todo-container {
   display: flex;
@@ -19,4 +15,14 @@ header {
 
 .todo {
   flex: 1;
+}
+
+input {
+  width: 100%;
+  display: inline-block
+}
+
+.input-down {
+  display: flex;
+  justify-content: space-between
 }
