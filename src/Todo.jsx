@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { add, retrieveAll } from "./firebase/firebase";
+import { add, retrieveAll, remove } from "./firebase/firebase";
 import Item from "./Item";
 
 const Todo = () => {
-  const collectionName = 'todos';
+  const collectionName = "todos";
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
 
@@ -13,9 +13,9 @@ const Todo = () => {
     try {
       const doc = {
         todo,
-        isDone: false
-      }
-      const docId = await add(collectionName, doc)
+        isDone: false,
+      };
+      const docId = await add(collectionName, doc);
       console.log("Document written with ID: ", docId);
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -39,9 +39,11 @@ const Todo = () => {
     setTodos(newTodos);
   };
 
-  const onDeleteClick = e => {
-    console.log(e.currentTarget.id)
-  }
+  const onDeleteClick = async (e) => {
+    const id = e.currentTarget.id;
+    const res = await remove(collectionName, id);
+    console.log("🚀 ~ onDeleteClick ~ res:", res)
+  };
 
   return (
     <div className="todo-container">
