@@ -1,5 +1,6 @@
 import "./Item.css";
 import Trash from "./../assets/bin-svgrepo-com.svg";
+import Checkbox from "../Checkbox/Checkbox";
 
 const Item = ({
   todo,
@@ -30,10 +31,8 @@ const Item = ({
   return (
     <div className="item-container">
       <div className="checkbox">
-        <input
-          type="checkbox"
+        <Checkbox
           name={todo}
-          value={todo}
           checked={isDone}
           id={id}
           onChange={onCheckboxClick}
