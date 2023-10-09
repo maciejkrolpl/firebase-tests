@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { add, retrieveAll, remove } from "./firebase/firebase";
 import Item from "./Item";
-import DatePicker from "react-datepicker";
+import Header from "./Header.jsx";
 import "react-datepicker/dist/react-datepicker.css";
 
 const Todo = () => {
@@ -27,6 +27,13 @@ const Todo = () => {
 
   const fetchPost = async () => {
     setTodos(await retrieveAll(collectionName));
+    setOutsideDivListener();
+  };
+
+  const setOutsideDivListener = () => {
+    document.addEventListener("click", (e) => {
+      console.log(e.target.nodeName);
+    });
   };
 
   useEffect(() => {
@@ -48,34 +55,25 @@ const Todo = () => {
     console.log("🚀 ~ onDeleteClick ~ res:", res);
   };
 
+  const handleDateChange = (e) => {
+    setDueDate(e)
+  };
+
+  const handleTodoChange = (e) => {
+    setTodo(e.target.value);
+  };
+
   return (
     <div className="todo-container">
       <div className="todo">
         <h1 className="header">Todo-App</h1>
 
-        <header>
-          <div className="input-container">
-            <input
-              type="text"
-              placeholder="What do you have to do today?"
-              onChange={(e) => setTodo(e.target.value)}
-            />
-          </div>
-
-          <div className="input-down">
-            <div className="date-container">
-              <DatePicker
-                selected={dueDate}
-                onChange={(date) => setDueDate(date)}
-              />
-            </div>
-            <div className="btn-container">
-              <button type="submit" className="btn" onClick={addTodo}>
-                Submit
-              </button>
-            </div>
-          </div>
-        </header>
+        <Header
+          onButtonClick={addTodo}
+          onDateChange={handleDateChange}
+          onTodoChange={handleTodoChange}
+          dueDate={dueDate}
+        ></Header>
 
         <div className="todo-content">
           {todos?.map((todo, i) => (
