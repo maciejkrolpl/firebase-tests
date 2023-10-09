@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import OutsideAlerter from "./outsideAlerter/OutsideAlerter";
+
 const Header = ({ onButtonClick, onDateChange, onTodoChange, dueDate }) => {
   const [isInputExpanded, setIsInputExpanded] = useState(false);
-
+  const inputRef = useRef();
+  const handleInputClick = (e) => {
+    setIsInputExpanded(true);
+    setTimeout(() => {
+      inputRef.current.focus();
+    }, 0);
+  };
   return (
     <OutsideAlerter
       onOutsideClick={() => {
@@ -18,7 +25,8 @@ const Header = ({ onButtonClick, onDateChange, onTodoChange, dueDate }) => {
             type="text"
             placeholder="What do you have to do today?"
             onChange={onTodoChange}
-            onClick={() => setIsInputExpanded(true)}
+            onClick={handleInputClick}
+            ref={inputRef}
           />
         </div>
 
