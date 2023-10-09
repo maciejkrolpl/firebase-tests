@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { collection, addDoc, getDocs } from "firebase/firestore";
-import {db} from './firebase';
-
+import { add, retrieveAll } from "./firebase/firebase";
+import Item from "./Item";
 
 const Todo = () => {
+  const collectionName = 'todos';
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
 
@@ -11,37 +11,45 @@ const Todo = () => {
     e.preventDefault();
 
     try {
-      const docRef = await addDoc(collection(db, "todos"), {
-        name: todo,
-      });
-      console.log("Document written with ID: ", docRef.id);
+      const doc = {
+        todo,
+        isDone: false
+      }
+      const docId = await add(collectionName, doc)
+      console.log("Document written with ID: ", docId);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   };
 
   const fetchPost = async () => {
-    await getDocs(collection(db, "todos")).then((querySnapshot) => {
-      const newData = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setTodos(newData);
-      console.log(todos, newData);
-    });
+    setTodos(await retrieveAll(collectionName));
   };
 
   useEffect(() => {
     fetchPost();
   }, []);
 
+  const onCheckboxClick = (e) => {
+    const newTodos = todos.map((todo) =>
+      todo.id === e.target.id
+        ? { ...todo, isDone: e.target.checked }
+        : { ...todo }
+    );
+    setTodos(newTodos);
+  };
+
+  const onDeleteClick = e => {
+    console.log(e.currentTarget.id)
+  }
+
   return (
-    <section className="todo-container">
+    <div className="todo-container">
       <div className="todo">
         <h1 className="header">Todo-App</h1>
 
-        <div>
-          <div>
+        <header>
+          <div className="input-container">
             <input
               type="text"
               placeholder="What do you have to do today?"
@@ -54,15 +62,23 @@ const Todo = () => {
               Submit
             </button>
           </div>
-        </div>
+        </header>
 
         <div className="todo-content">
           {todos?.map((todo, i) => (
-            <p key={i}>{todo.name}</p>
+            <Item
+              key={i}
+              todo={todo.todo}
+              dueDate={todo.dueDate}
+              isDone={todo.isDone}
+              id={todo.id}
+              onCheckboxClick={onCheckboxClick}
+              onDeleteClick={onDeleteClick}
+            ></Item>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
