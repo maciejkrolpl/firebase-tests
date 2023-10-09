@@ -29,8 +29,14 @@ async function retrieveAll(collectionName) {
 
 async function edit(collectionName, data) {
   const { id } = data;
-  const docRef = await setDoc(collection(db, collectionName, id), data);
-  return docRef.id;
+  const docRef = doc(db, collectionName, id);
+  try {
+    await setDoc(docRef, data);
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+  return true;
 }
 
 async function remove(collectionName, docId) {

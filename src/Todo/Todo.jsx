@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import Header from "../Header/Header.jsx";
 import Item from "../Item/Item";
-import { add, remove, retrieveAll } from "../firebase/firebase";
+import { add, remove, retrieveAll, edit } from "../firebase/firebase";
 import './Todo.css';
 
 const Todo = () => {
@@ -41,6 +41,8 @@ const Todo = () => {
         : { ...todo }
     );
     setTodos(newTodos);
+    const updatedTodo = newTodos.find(todo => todo.id === e.target.id);
+    edit(collectionName, updatedTodo)
   };
 
   const onDeleteClick = async (e) => {
