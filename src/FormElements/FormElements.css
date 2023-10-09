@@ -1,0 +1,19 @@
+input, button {
+  border: 0;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-shadow:inset 0px 0px 0px 1px #a9a9a9;
+}
+
+input {
+  padding: 0.5rem;
+}
+
+button {
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+}
+
+button:hover {
+  box-shadow:inset 0px 0px 0px 2px #a9a9a9;
+}

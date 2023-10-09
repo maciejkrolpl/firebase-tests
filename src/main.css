@@ -5,3 +5,7 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+
+body {
+  background: linear-gradient(90deg, #c9c9c9, #a9a9f9);
+}

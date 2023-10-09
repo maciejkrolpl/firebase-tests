@@ -1,5 +1,5 @@
 import "./Item.css";
-import Trash from "./assets/bin-svgrepo-com.svg";
+import Trash from "./../assets/bin-svgrepo-com.svg";
 
 const Item = ({
   todo,

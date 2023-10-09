@@ -5,9 +5,23 @@ input {
 
 .input-down {
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+  margin-top: 0.5rem;
 }
 
 .hidden {
   display: none;
+}
+
+header {
+    border: 2px solid #898989;
+    padding: 1rem 0.5rem;
+    border-radius: 8px;
+    background-color: white;
+    margin: 0 30%;
+
+}
+
+h2 {
+  text-align: center;
 }

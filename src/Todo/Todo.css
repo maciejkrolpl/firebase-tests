@@ -2,6 +2,9 @@
 .todo-container {
   display: flex;
   justify-content: center;
+}
+
+.todo-content {
   margin: 0 35%;
 }
 

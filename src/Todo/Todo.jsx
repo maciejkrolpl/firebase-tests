@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { add, retrieveAll, remove } from "../firebase/firebase";
-import Item from "../Item";
-import Header from "../Header/Header.jsx";
-import './Todo.css'
+import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
+import Header from "../Header/Header.jsx";
+import Item from "../Item/Item";
+import { add, remove, retrieveAll } from "../firebase/firebase";
+import './Todo.css';
 
 const Todo = () => {
   const collectionName = "todos";
