@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { add, retrieveAll, remove } from "./firebase/firebase";
-import Item from "./Item";
-import Header from "./Header.jsx";
-import OutsideAlerter from "./outsideAlerter/OutsideAlerter";
+import { add, retrieveAll, remove } from "../firebase/firebase";
+import Item from "../Item";
+import Header from "../Header/Header.jsx";
+import './Todo.css'
 import "react-datepicker/dist/react-datepicker.css";
 
 const Todo = () => {

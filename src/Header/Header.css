@@ -1,0 +1,13 @@
+input {
+  width: 100%;
+  display: inline-block
+}
+
+.input-down {
+  display: flex;
+  justify-content: space-between
+}
+
+.hidden {
+  display: none;
+}

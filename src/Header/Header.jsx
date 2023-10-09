@@ -1,7 +1,8 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import OutsideAlerter from "./outsideAlerter/OutsideAlerter";
+import OutsideAlerter from "../OutsideAlerter/OutsideAlerter";
+import './Header.css';
 
 const Header = ({ onButtonClick, onDateChange, onTodoChange, dueDate }) => {
   const [isInputExpanded, setIsInputExpanded] = useState(false);

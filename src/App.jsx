@@ -1,11 +1,7 @@
-import Todo from "./Todo";
+import Todo from "./Todo/Todo";
 
 function App() {
-  return (
-    <>
-      <Todo></Todo>
-    </>
-  );
+  return <Todo/>;
 }
 
 export default App;

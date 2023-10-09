@@ -5,28 +5,3 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
-
-
-.todo-container {
-  display: flex;
-  justify-content: center;
-  margin: 0 35%;
-}
-
-.todo {
-  flex: 1;
-}
-
-input {
-  width: 100%;
-  display: inline-block
-}
-
-.input-down {
-  display: flex;
-  justify-content: space-between
-}
-
-.hidden {
-  display: none;
-}
