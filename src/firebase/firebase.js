@@ -27,6 +27,12 @@ async function retrieveAll(collectionName) {
   return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 }
 
+async function edit(collectionName, data) {
+  const { id } = data;
+  const docRef = await setDoc(collection(db, collectionName, id), data);
+  return docRef.id;
+}
+
 async function remove(collectionName, docId) {
   const docToDelete = doc(db, collectionName, docId);
 
@@ -39,4 +45,4 @@ async function remove(collectionName, docId) {
   return true;
 }
 
-export { add, retrieveAll, remove };
+export { add, retrieveAll, remove, edit };
