@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import OutsideAlerter from "../OutsideAlerter/OutsideAlerter";
+import OutsideAlerter from "../out-alert/OutsideAlerter";
 import "./Header.css";
 import "./../FormElements/FormElements.css";
 
