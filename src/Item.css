@@ -1,0 +1,32 @@
+.item-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+label {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.checkbox, .utils {
+  flex-shrink: 1;
+}
+
+.utils {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.value {
+  flex: 1;
+}
+
+.delete-link {
+  cursor: pointer;
+}
