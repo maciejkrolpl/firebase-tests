@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { add, retrieveAll, remove } from "./firebase/firebase";
 import Item from "./Item";
 import Header from "./Header.jsx";
+import OutsideAlerter from "./outsideAlerter/OutsideAlerter";
 import "react-datepicker/dist/react-datepicker.css";
 
 const Todo = () => {
@@ -27,13 +28,6 @@ const Todo = () => {
 
   const fetchPost = async () => {
     setTodos(await retrieveAll(collectionName));
-    setOutsideDivListener();
-  };
-
-  const setOutsideDivListener = () => {
-    document.addEventListener("click", (e) => {
-      console.log(e.target.nodeName);
-    });
   };
 
   useEffect(() => {
@@ -56,7 +50,7 @@ const Todo = () => {
   };
 
   const handleDateChange = (e) => {
-    setDueDate(e)
+    setDueDate(e);
   };
 
   const handleTodoChange = (e) => {
@@ -74,7 +68,6 @@ const Todo = () => {
           onTodoChange={handleTodoChange}
           dueDate={dueDate}
         ></Header>
-
         <div className="todo-content">
           {todos?.map((todo, i) => (
             <Item

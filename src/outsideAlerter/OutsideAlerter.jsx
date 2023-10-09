@@ -1,17 +1,17 @@
-import  { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 
 /**
  * Hook that alerts clicks outside of the passed ref
  */
-function useOutsideAlerter(ref) {
+function useOutsideAlerter(ref, onOutsideClick) {
   useEffect(() => {
     /**
      * Alert if clicked on outside of element
      */
     function handleClickOutside(event) {
       if (ref.current && !ref.current.contains(event.target)) {
-        alert("You clicked outside of me!");
+        onOutsideClick();
       }
     }
     // Bind the event listener
@@ -26,15 +26,20 @@ function useOutsideAlerter(ref) {
 /**
  * Component that alerts if you click outside of it
  */
-function OutsideAlerter(props) {
+function OutsideAlerter({ children, onOutsideClick, isActive }) {
   const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef);
+  useOutsideAlerter(wrapperRef, onOutsideClick);
 
-  return <div ref={wrapperRef}>{props.children}</div>;
+  if (isActive) {
+    return <div ref={wrapperRef}>{children}</div>;
+  }
+  return <>{children}</>;
 }
 
 OutsideAlerter.propTypes = {
   children: PropTypes.element.isRequired,
+  onOutsideClick: PropTypes.func.isRequired,
+  isActive: PropTypes.bool,
 };
 
 export default OutsideAlerter;
