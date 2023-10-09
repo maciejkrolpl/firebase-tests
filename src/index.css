@@ -14,4 +14,9 @@ header {
 .todo-container {
   display: flex;
   justify-content: center;
+  margin: 0 35%;
+}
+
+.todo {
+  flex: 1;
 }
