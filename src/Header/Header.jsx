@@ -27,6 +27,7 @@ const Header = ({ onButtonClick, onDateChange, onTodoChange, dueDate }) => {
             <h2>What do you have to do today?</h2>
             <input
               type="text"
+              name="Add todo"
               placeholder="What do you have to do today?"
               onChange={onTodoChange}
               onClick={handleInputClick}

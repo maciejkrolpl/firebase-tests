@@ -44,7 +44,7 @@ const Item = ({
       <div className="utils">
         <div className="time">{displayDate()}</div>
         <div className="delete">
-          <a onClick={onDeleteClick} className="delete-link" id={id}>
+          <a onClick={onDeleteClick} className="delete-link" data-deleteid={id}>
             <img src={Trash} alt="Delete" />
           </a>
         </div>

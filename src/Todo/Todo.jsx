@@ -46,7 +46,7 @@ const Todo = () => {
   };
 
   const onDeleteClick = async (e) => {
-    const id = e.currentTarget.id;
+    const id = e.currentTarget.dataset.deleteid;
     const res = await remove(collectionName, id);
     console.log("🚀 ~ onDeleteClick ~ res:", res);
   };
