@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import Header from "../Header/Header.jsx";
 import Item from "../Item/Item";
-import { add, remove, retrieveAll, edit } from "../firebase/firebase";
+// import { add, remove, retrieveAll, edit } from "../firebase/firebase";
+import Firebase from '../firebase/firebase.js'
 import './Todo.css';
 
 const Todo = () => {
   const collectionName = "todos";
+  const dbRef = new Firebase(collectionName);
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
   const [dueDate, setDueDate] = useState(new Date());
@@ -20,7 +22,7 @@ const Todo = () => {
         dueDate,
         isDone: false,
       };
-      await add(collectionName, doc);
+      await dbRef.add(doc);
       fetchPost()
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -28,7 +30,7 @@ const Todo = () => {
   };
 
   const fetchPost = async () => {
-    setTodos(await retrieveAll(collectionName));
+    setTodos(await dbRef.retrieveAll());
   };
 
   useEffect(() => {
@@ -43,13 +45,13 @@ const Todo = () => {
     );
     setTodos(newTodos);
     const updatedTodo = newTodos.find(todo => todo.id === e.target.id);
-    await edit(collectionName, updatedTodo)
+    await dbRef.edit(updatedTodo)
     fetchPost()
   };
 
   const onDeleteClick = async (e) => {
     const id = e.currentTarget.dataset.deleteid;
-    await remove(collectionName, id);
+    await dbRef.remove(id);
     fetchPost()
   };
 
