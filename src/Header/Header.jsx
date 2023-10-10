@@ -5,8 +5,8 @@ import OutsideAlerter from "../OutsideAlerter/OutsideAlerter";
 import "./Header.css";
 import "./../FormElements/FormElements.css";
 
-const Header = ({ onButtonClick, onDateChange, onTodoChange, dueDate }) => {
-  const [isInputExpanded, setIsInputExpanded] = useState(false);
+const Header = ({ onButtonClick, onDateChange, onTodoChange, dueDate, isInputExpanded }) => {
+  
   const inputRef = useRef();
   const handleInputClick = (e) => {
     setIsInputExpanded(true);

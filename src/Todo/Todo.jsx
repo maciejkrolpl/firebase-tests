@@ -10,6 +10,7 @@ const Todo = () => {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
   const [dueDate, setDueDate] = useState(new Date());
+  const [isInputExpanded, setIsInputExpanded] = useState(false);
 
   const addTodo = async (e) => {
     e.preventDefault();
@@ -21,6 +22,7 @@ const Todo = () => {
         isDone: false,
       };
       await add(collectionName, doc);
+      fetchPost()
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -34,7 +36,7 @@ const Todo = () => {
     fetchPost();
   }, []);
 
-  const onCheckboxClick = (e) => {
+  const onCheckboxClick = async (e) => {
     const newTodos = todos.map((todo) =>
       todo.id === e.target.id
         ? { ...todo, isDone: e.target.checked }
@@ -42,13 +44,14 @@ const Todo = () => {
     );
     setTodos(newTodos);
     const updatedTodo = newTodos.find(todo => todo.id === e.target.id);
-    edit(collectionName, updatedTodo)
+    await edit(collectionName, updatedTodo)
+    fetchPost()
   };
 
   const onDeleteClick = async (e) => {
     const id = e.currentTarget.dataset.deleteid;
-    const res = await remove(collectionName, id);
-    console.log("🚀 ~ onDeleteClick ~ res:", res);
+    await remove(collectionName, id);
+    fetchPost()
   };
 
   const handleDateChange = (e) => {
@@ -69,6 +72,7 @@ const Todo = () => {
           onDateChange={handleDateChange}
           onTodoChange={handleTodoChange}
           dueDate={dueDate}
+          isInputExpanded={isInputExpanded}
         ></Header>
         <div className="todo-content">
           {todos?.map((todo, i) => (
