@@ -7,48 +7,57 @@ import {
   getDocs,
   deleteDoc,
   doc,
+  query,
+  orderBy,
 } from "firebase/firestore";
 
-const getFirebaseConfig = () => {
-  return JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG);
-};
-
-const firebaseConfig = getFirebaseConfig();
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-async function add(collectionName, data) {
-  const docRef = await addDoc(collection(db, collectionName), data);
-  return docRef.id;
-}
-
-async function retrieveAll(collectionName) {
-  const snapshot = await getDocs(collection(db, collectionName));
-  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-}
-
-async function edit(collectionName, data) {
-  const { id } = data;
-  const docRef = doc(db, collectionName, id);
-  try {
-    await setDoc(docRef, data);
-  } catch (error) {
-    console.error(error);
-    return false;
+class Firebase {
+  constructor(collectionName) {
+    this.collectionName = collectionName;
+    this.db = this.instantiateDatabase();
   }
-  return true;
-}
 
-async function remove(collectionName, docId) {
-  const docToDelete = doc(db, collectionName, docId);
-
-  try {
-    await deleteDoc(docToDelete);
-  } catch (error) {
-    console.error(error);
-    return false;
+  instantiateDatabase() {
+    const firebaseConfig = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG);
+    const app = initializeApp(firebaseConfig);
+    return getFirestore(app);
   }
-  return true;
+
+  async retrieveAll() {
+    const collectionRef = collection(this.db, this.collectionName);
+    const snapshot = await getDocs(query(collectionRef, orderBy("dueDate")));
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  }
+
+  async add(data) {
+    const collectionRef = collection(this.db, this.collectionName);
+    const docRef = await addDoc(collectionRef, data);
+    return docRef.id;
+  }
+
+  async edit(data) {
+    const { id } = data;
+    const docRef = doc(this.db, this.collectionName, id);
+    try {
+      await setDoc(docRef, data);
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+    return true;
+  }
+  
+  async remove(docId) {
+    const docToDelete = doc(this.db, this.collectionName, docId);
+
+    try {
+      await deleteDoc(docToDelete);
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+    return true;
+  }
 }
 
-export { add, retrieveAll, remove, edit };
+export default Firebase;

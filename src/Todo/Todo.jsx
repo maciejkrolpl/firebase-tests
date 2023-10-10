@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import Header from "../Header/Header.jsx";
 import Item from "../Item/Item";
-import { add, remove, retrieveAll, edit } from "../firebase/firebase";
-import './Todo.css';
-
+import Firebase from "../firebase/firebase.js";
+import "./Todo.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Todo = () => {
   const collectionName = "todos";
+  const dbRef = new Firebase(collectionName);
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
   const [dueDate, setDueDate] = useState(new Date());
@@ -20,15 +22,29 @@ const Todo = () => {
         dueDate,
         isDone: false,
       };
-      await add(collectionName, doc);
-      fetchPost()
+      await dbRef.add(doc);
+
+      toast.success("Todo added", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1500,
+        draggable: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+      });
+      fetchPost();
     } catch (e) {
       console.error("Error adding document: ", e);
+      toast.error(`Error adding todo!`, {
+        position: toast.POSITION.TOP_CENTER,
+        draggable: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+      });
     }
   };
 
   const fetchPost = async () => {
-    setTodos(await retrieveAll(collectionName));
+    setTodos(await dbRef.retrieveAll());
   };
 
   useEffect(() => {
@@ -42,15 +58,31 @@ const Todo = () => {
         : { ...todo }
     );
     setTodos(newTodos);
-    const updatedTodo = newTodos.find(todo => todo.id === e.target.id);
-    await edit(collectionName, updatedTodo)
-    fetchPost()
+    const updatedTodo = newTodos.find((todo) => todo.id === e.target.id);
+    await dbRef.edit(updatedTodo);
+    fetchPost();
+  };
+
+  const confirmDelete = async (id) => {
+    await dbRef.remove(id);
+    fetchPost();
   };
 
   const onDeleteClick = async (e) => {
     const id = e.currentTarget.dataset.deleteid;
-    await remove(collectionName, id);
-    fetchPost()
+    toast.warn(
+      <div>
+        <button onClick={() => confirmDelete(id)}>Confirm</button>
+      </div>,
+      {
+        position: toast.POSITION.TOP_CENTER,
+        draggable: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        hideProgressBar: true,
+        autoClose: false,
+      }
+    );
   };
 
   const handleDateChange = (e) => {
@@ -86,6 +118,7 @@ const Todo = () => {
           ))}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

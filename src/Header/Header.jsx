@@ -8,7 +8,7 @@ import "./../FormElements/FormElements.css";
 const Header = ({ onButtonClick, onDateChange, onTodoChange, dueDate }) => {
   const [isInputExpanded, setIsInputExpanded] = useState(false);
   const inputRef = useRef();
-  const handleInputClick = (e) => {
+  const handleInputClick = () => {
     setIsInputExpanded(true);
     setTimeout(() => {
       inputRef.current.focus();
@@ -22,7 +22,7 @@ const Header = ({ onButtonClick, onDateChange, onTodoChange, dueDate }) => {
         }}
         isActive={isInputExpanded}
       >
-        <>
+        <form>
           <div className="input-container">
             <h2>What do you have to do today?</h2>
             <input
@@ -32,6 +32,7 @@ const Header = ({ onButtonClick, onDateChange, onTodoChange, dueDate }) => {
               onChange={onTodoChange}
               onClick={handleInputClick}
               ref={inputRef}
+              required
             />
           </div>
 
@@ -45,7 +46,7 @@ const Header = ({ onButtonClick, onDateChange, onTodoChange, dueDate }) => {
               </button>
             </div>
           </div>
-        </>
+        </form>
       </OutsideAlerter>
     </header>
   );
