@@ -1,0 +1,41 @@
+.item-container {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #c9c9c9;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  background: linear-gradient(225deg, #eee, #fff);
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+label {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.checkbox, .utils {
+  flex-shrink: 1;
+}
+
+.checkbox {
+  padding-right: 0.5rem;
+}
+
+.utils {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.value {
+  flex: 1;
+}
+
+.delete-link {
+  cursor: pointer;
+}
