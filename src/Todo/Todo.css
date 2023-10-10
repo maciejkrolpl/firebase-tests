@@ -13,3 +13,8 @@
   flex: 1;
 }
 
+@media (max-width: 566px ) {
+  h1 {
+    font-size: 14px;
+  }
+}

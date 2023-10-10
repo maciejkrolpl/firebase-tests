@@ -10,7 +10,6 @@ const Todo = () => {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
   const [dueDate, setDueDate] = useState(new Date());
-  const [isInputExpanded, setIsInputExpanded] = useState(false);
 
   const addTodo = async (e) => {
     e.preventDefault();
@@ -72,7 +71,6 @@ const Todo = () => {
           onDateChange={handleDateChange}
           onTodoChange={handleTodoChange}
           dueDate={dueDate}
-          isInputExpanded={isInputExpanded}
         ></Header>
         <div className="todo-content">
           {todos?.map((todo, i) => (
