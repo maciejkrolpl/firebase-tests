@@ -7,6 +7,8 @@ import {
   getDocs,
   deleteDoc,
   doc,
+  query,
+  orderBy
 } from "firebase/firestore";
 
 const getFirebaseConfig = () => {
@@ -23,7 +25,8 @@ async function add(collectionName, data) {
 }
 
 async function retrieveAll(collectionName) {
-  const snapshot = await getDocs(collection(db, collectionName));
+  const collectionRef = collection(db, collectionName);
+  const snapshot = await getDocs(query(collectionRef, orderBy('dueDate')));
   return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 }
 
