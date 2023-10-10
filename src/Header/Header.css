@@ -18,7 +18,8 @@ header {
     padding: 1rem 0.5rem;
     border-radius: 8px;
     background-color: white;
-    margin: 0 30%;
+    margin: 0 auto;
+    max-width: 550px;
 
 }
 
